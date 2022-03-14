@@ -6,6 +6,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 import xalbrech.exercises.routing.calculation.RouteCalculator;
 
+/**
+ * Defines the /routing/origin/destination endpoint
+ */
 @RestController
 public class RoutingController {
 
