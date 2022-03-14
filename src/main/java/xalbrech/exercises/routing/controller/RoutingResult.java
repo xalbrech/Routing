@@ -9,12 +9,11 @@ public class RoutingResult {
 
     Collection<String> route;
 
-    public Collection<String> getRoute() {
-        return route;
-    }
-
-    public void setRoute(Collection<String> route) {
+    public RoutingResult(Collection<String> route) {
         this.route = route;
     }
 
+    public Collection<String> getRoute() {
+        return route;
+    }
 }
