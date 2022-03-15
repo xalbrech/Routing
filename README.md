@@ -32,5 +32,5 @@ On a checked-out project, run maven:
 Important units of the source:
 * `xalbrech.exercises.routing.map.CountryMap` Loads and maintains the map data
 * `xalbrech.exercises.routing.calculation.RouteCalculator` Performs actual calculation of the route (uses a bfs to traverse the data provided by `CountryMap`)
-* 'xalbrech.exercises.routing.controller.RoutingController` REST controller that defines the `/routing` endpoint.
+* `xalbrech.exercises.routing.controller.RoutingController` REST controller that defines the `/routing` endpoint.
 
