@@ -56,33 +56,40 @@ class RouteCalculatorTest {
     }
 
     @Test
-    public void czeToCze() throws RouteNotFoundException {
+    public void czeToCze() throws RouteNotFoundException, CountryNotFoundException {
         Collection<String> result = routeCalculator.routing("CZE", "CZE");
         assertThat(result, contains("CZE"));
     }
 
     @Test
-    public void czeToIta() throws RouteNotFoundException {
+    public void czeToIta() throws RouteNotFoundException, CountryNotFoundException {
         Collection<String> result = routeCalculator.routing("CZE", "ITA");
         assertThat(result, contains("CZE", "AUT", "ITA"));
     }
 
     @Test
-    public void ukrToSvk() throws RouteNotFoundException {
+    public void ukrToSvk() throws RouteNotFoundException, CountryNotFoundException {
         Collection<String> result = routeCalculator.routing("UKR", "SVK");
         assertThat(result, contains("UKR", "SVK"));
     }
 
     @Test
-    public void ukrToIta() throws RouteNotFoundException {
+    public void ukrToIta() throws RouteNotFoundException, CountryNotFoundException {
         Collection<String> result = routeCalculator.routing("UKR", "ITA");
         assertThat(result, contains("UKR", "SVK", "AUT", "ITA"));
     }
 
     @Test
-    public void usaToCze() throws RouteNotFoundException {
+    public void usaToCze() {
         assertThrows(RouteNotFoundException.class, () -> {
             routeCalculator.routing("USA", "CZE");
+        });
+    }
+
+    @Test
+    public void usaToNowhere() {
+        assertThrows(CountryNotFoundException.class, () -> {
+            routeCalculator.routing("USA", "Nowhere");
         });
     }
 

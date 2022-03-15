@@ -6,7 +6,9 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.web.servlet.MockMvc;
+import xalbrech.exercises.routing.calculation.CountryNotFoundException;
 import xalbrech.exercises.routing.calculation.RouteCalculator;
+import xalbrech.exercises.routing.calculation.RouteNotFoundException;
 
 import java.util.Arrays;
 
@@ -41,6 +43,22 @@ class RoutingControllerTest {
         mockMvc.perform(get("/routing/CZE/UKR"))
                 .andExpect(status().isOk())
                 .andExpect(content().json("{\"route\" : [\"CZE\", \"ABC\", \"UKR\"]}"));
+    }
+
+    @Test
+    public void routingHandlesRouteNotFound() throws Exception {
+        when(routeCalculator.routing("USA", "CZE")).thenThrow(new RouteNotFoundException("no routing found"));
+
+        mockMvc.perform(get("/routing/USA/CZE"))
+                .andExpect(status().isBadRequest());
+    }
+
+    @Test
+    public void routingHandlesUnknnownCode() throws Exception {
+        when(routeCalculator.routing("UKR", "Narnia")).thenThrow(new CountryNotFoundException("No country found"));
+
+        mockMvc.perform(get("/routing/UKR/Narnia"))
+                .andExpect(status().isBadRequest());
     }
 
 

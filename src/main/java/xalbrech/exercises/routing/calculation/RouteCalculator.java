@@ -7,6 +7,7 @@ import org.springframework.stereotype.Component;
 import xalbrech.exercises.routing.map.Country;
 import xalbrech.exercises.routing.map.CountryMap;
 
+import java.text.MessageFormat;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -28,10 +29,19 @@ public class RouteCalculator {
      * @param destinationString cca3 code of destination country
      * @return Route as a collection of cca3 codes, origin and destination included
      * @throws RouteNotFoundException if route between origin and destination was not found.
+     * @throws CountryNotFoundException if either origin or destination country code was not found
      */
-    public Collection<String> routing(String originString, String destinationString) throws RouteNotFoundException {
+    public Collection<String> routing(String originString, String destinationString) throws RouteNotFoundException, CountryNotFoundException {
         Country originCountry = countryMap.getCountry(originString);
+        if (originCountry == null) {
+            throw new CountryNotFoundException("Origin country code was not found");
+        }
+
         Country destinationCountry = countryMap.getCountry(destinationString);
+        if (destinationCountry == null) {
+            throw new CountryNotFoundException("Destination country code was not found");
+        }
+
         Collection<Country> result = routing(originCountry, destinationCountry);
         return result.stream().map(Country::getCca3).collect(Collectors.toList());
     }
@@ -62,8 +72,9 @@ public class RouteCalculator {
         } while (queue.size() > 0);
 
         if (parents.get(destination) == null) {
-            log.info("Route between {} and {} was not found", origin, destination);
-            throw new RouteNotFoundException();
+            String errorText = MessageFormat.format("Route between {0} and {1} was not found", origin, destination);
+            log.debug(errorText);
+            throw new RouteNotFoundException(errorText);
         }
 
         ArrayList<Country> result = new ArrayList<Country>();
