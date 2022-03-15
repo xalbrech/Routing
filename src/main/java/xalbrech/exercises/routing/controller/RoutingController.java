@@ -9,10 +9,8 @@ import org.springframework.web.server.ResponseStatusException;
 import xalbrech.exercises.routing.calculation.RouteCalculator;
 import xalbrech.exercises.routing.calculation.RouteNotFoundException;
 
-import java.text.MessageFormat;
-
 /**
- * Defines the /routing/origin/destination endpoint
+ * Controller, defines the /routing/origin/destination endpoint of the application.
  */
 @RestController
 public class RoutingController {
