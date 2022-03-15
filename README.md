@@ -1,7 +1,6 @@
 # Routing 
 
 ## Overview
-This is an interview exercise project. 
 
 The application finds a land route between two countries based on list of countries located at : `https://raw.githubusercontent.com/mledoze/countries/master/countries.json`. 
 To calculate the route, list of each country borders (neighbourghing countries) from the above URL is used. 
