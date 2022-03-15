@@ -12,9 +12,9 @@ import org.springframework.web.client.RestTemplate;
 import xalbrech.exercises.routing.map.json.CountryMapping;
 import xalbrech.exercises.routing.map.json.CountryMappingList;
 
-import javax.annotation.PostConstruct;
 import java.util.ArrayList;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Set;
 import java.util.function.Function;
 import java.util.stream.Collectors;
@@ -27,18 +27,18 @@ public class CountryMap {
 
     @Autowired
     private RestTemplate restTemplate;
+
     private Map<String, Country> countries;
 
     /**
-     * Load country mapping upon initialization of the application.
+     * Load country mapping upon initialization of the application. Is called by an event listener.
      *
-     * @throws JsonProcessingException
+     * @throws JsonProcessingException if Json processing fails
      */
-    @PostConstruct
-    public void loadCountryMap() throws JsonProcessingException {
+    public void initMap() throws JsonProcessingException {
         ResponseEntity<String> response =
                 restTemplate.exchange(RequestEntity.get(countryJsonUrl).build(),
-                                String.class);
+                        String.class);
 
         ObjectMapper objectMapper = new ObjectMapper();
         objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
@@ -51,7 +51,7 @@ public class CountryMap {
                 .collect(Collectors.toMap(Country::getCca3, Function.identity()));
 
         countryMappings.forEach(mapping -> {
-                    Set<Country> borders = mapping.getBorders().stream().map(countries::get).collect(Collectors.toSet());
+            Set<Country> borders = mapping.getBorders().stream().map(countries::get).filter(Objects::nonNull).collect(Collectors.toSet());
                     countries.get(mapping.getCca3()).setBorders(borders);
                 }
         );
@@ -60,5 +60,4 @@ public class CountryMap {
     public Country getCountry(String cca3) {
         return this.countries.get(cca3);
     }
-
 }
