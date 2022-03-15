@@ -36,4 +36,9 @@ public class Country {
     public int hashCode() {
         return Objects.hash(cca3);
     }
+
+    @Override
+    public String toString() {
+        return "\"" + cca3 + "\"";
+    }
 }
