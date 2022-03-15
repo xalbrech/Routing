@@ -1,7 +1,6 @@
 package xalbrech.exercises.routing.controller;
 
 import org.junit.jupiter.api.Test;
-import org.mockito.InjectMocks;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -27,9 +26,6 @@ class RoutingControllerTest {
     @MockBean
     RouteCalculator routeCalculator;
 
-    @InjectMocks
-    RoutingController routingController;
-
     @Test
     public void routingCallsRoutingCalulationBean() throws Exception {
         mockMvc.perform(get("/routing/origin/destination"))
@@ -40,11 +36,11 @@ class RoutingControllerTest {
 
     @Test
     public void routingReturnsExpectedJsonObject() throws Exception {
-        when(routeCalculator.routing("CZE", "UKR")).thenReturn(Arrays.asList("CZE", "SVK", "UKR"));
+        when(routeCalculator.routing("CZE", "UKR")).thenReturn(Arrays.asList("CZE", "ABC", "UKR"));
 
         mockMvc.perform(get("/routing/CZE/UKR"))
                 .andExpect(status().isOk())
-                .andExpect(content().json("{\"route\" : [\"CZE\", \"SVK\", \"UKR\"]}"));
+                .andExpect(content().json("{\"route\" : [\"CZE\", \"ABC\", \"UKR\"]}"));
     }
 
 
