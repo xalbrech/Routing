@@ -19,6 +19,10 @@ import java.util.Set;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
+/**
+ * Maintains the map of countries and provides m
+ * country data to the search algorithm (the {@link xalbrech.exercises.routing.calculation.RouteCalculator})
+ */
 @Component
 public class CountryMap {
 
@@ -42,7 +46,7 @@ public class CountryMap {
 
         ObjectMapper objectMapper = new ObjectMapper();
         objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-        ArrayList<CountryMapping> countryMappings = objectMapper.readValue(response.getBody(),
+        CountryMappingList countryMappings = objectMapper.readValue(response.getBody(),
                 CountryMappingList.class);
 
         countries = countryMappings
@@ -57,6 +61,10 @@ public class CountryMap {
         );
     }
 
+    /**
+     * @param cca3 country code
+     * @return Country instance for the code
+     */
     public Country getCountry(String cca3) {
         return this.countries.get(cca3);
     }
