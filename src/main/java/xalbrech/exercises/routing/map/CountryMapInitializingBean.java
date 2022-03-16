@@ -1,22 +1,22 @@
 package xalbrech.exercises.routing.map;
 
+import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Component;
 
 /**
- * Event listener that loads the map data.
+ * Initializing bean - populates the country map.
  */
 @Component
-public class CountryMapEventListener {
+public class CountryMapInitializingBean implements InitializingBean {
 
     @Autowired
     CountryMap countryMap;
 
-    @EventListener(ApplicationReadyEvent.class)
-    public void loadMap() throws Exception {
+    @Override
+    public void afterPropertiesSet() throws Exception {
         countryMap.initMap();
     }
-
 }
