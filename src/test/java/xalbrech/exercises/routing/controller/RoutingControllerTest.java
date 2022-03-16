@@ -6,6 +6,7 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import xalbrech.exercises.routing.calculation.CountryNotFoundException;
 import xalbrech.exercises.routing.calculation.RouteCalculator;
 import xalbrech.exercises.routing.calculation.RouteNotFoundException;
@@ -18,7 +19,8 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@SpringBootTest
+@SpringBootTest(classes = RoutingController.class)
+@EnableWebMvc
 @AutoConfigureMockMvc
 class RoutingControllerTest {
 
@@ -60,6 +62,5 @@ class RoutingControllerTest {
         mockMvc.perform(get("/routing/UKR/Narnia"))
                 .andExpect(status().isBadRequest());
     }
-
 
 }

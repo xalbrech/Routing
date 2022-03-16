@@ -19,7 +19,7 @@ import static org.hamcrest.Matchers.contains;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.when;
 
-@SpringBootTest
+@SpringBootTest(classes = RouteCalculator.class)
 class RouteCalculatorTest {
 
     @MockBean
