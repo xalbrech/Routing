@@ -7,8 +7,8 @@ import java.util.Set;
  * Helper used in JSON mapping / ObjectMapper only
  */
 public class CountryMapping {
-    Set<String> borders;
-    String cca3;
+    private Set<String> borders;
+    private String cca3;
 
     public Set<String> getBorders() {
         return borders;

@@ -7,7 +7,7 @@ import java.util.Collection;
  */
 public class RoutingResult {
 
-    Collection<String> route;
+    private Collection<String> route;
 
     public RoutingResult(Collection<String> route) {
         this.route = route;

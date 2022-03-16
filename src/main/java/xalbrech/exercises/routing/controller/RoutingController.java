@@ -21,7 +21,7 @@ import java.util.Arrays;
 public class RoutingController {
 
     @Autowired
-    RouteCalculator routeCalculator;
+    private RouteCalculator routeCalculator;
 
     @ExceptionHandler({RouteNotFoundException.class, CountryNotFoundException.class})
     public ResponseEntity<Object> handleEntityNotFound(Exception e) {

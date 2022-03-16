@@ -18,10 +18,10 @@ import java.util.stream.Collectors;
 @Component
 public class RouteCalculator {
 
-    Logger log = LoggerFactory.getLogger(RouteCalculator.class);
+    private static final Logger log = LoggerFactory.getLogger(RouteCalculator.class);
 
     @Autowired
-    CountryMap countryMap;
+    private CountryMap countryMap;
 
     /**
      * Calculates route between two countries

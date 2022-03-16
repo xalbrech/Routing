@@ -5,8 +5,8 @@ import java.util.Set;
 
 public class Country {
 
-    Set<Country> borders;
-    String cca3;
+    private Set<Country> borders;
+    private String cca3;
 
     public Country(String cca3) {
         this.cca3 = cca3;

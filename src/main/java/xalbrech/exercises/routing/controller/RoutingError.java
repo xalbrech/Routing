@@ -4,7 +4,7 @@ package xalbrech.exercises.routing.controller;
  * Mapping of routing error
  */
 public class RoutingError {
-    String error;
+    private String error;
 
     public RoutingError(String error) {
         this.error = error;
