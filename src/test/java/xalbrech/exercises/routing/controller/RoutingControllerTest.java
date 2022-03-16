@@ -13,10 +13,12 @@ import xalbrech.exercises.routing.calculation.RouteNotFoundException;
 
 import java.util.Arrays;
 
+import static org.hamcrest.Matchers.contains;
+import static org.hamcrest.Matchers.notNullValue;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @SpringBootTest(classes = RoutingController.class)
@@ -44,7 +46,8 @@ class RoutingControllerTest {
 
         mockMvc.perform(get("/routing/CZE/UKR"))
                 .andExpect(status().isOk())
-                .andExpect(content().json("{\"route\" : [\"CZE\", \"ABC\", \"UKR\"]}"));
+                .andExpect(jsonPath("$.route", contains("CZE", "ABC", "UKR")));
+
     }
 
     @Test
@@ -52,15 +55,18 @@ class RoutingControllerTest {
         when(routeCalculator.routing("USA", "CZE")).thenThrow(new RouteNotFoundException("no routing found"));
 
         mockMvc.perform(get("/routing/USA/CZE"))
-                .andExpect(status().isBadRequest());
+                .andExpect(status().isBadRequest())
+                .andExpect(jsonPath("$.error", notNullValue()));
+
     }
 
     @Test
-    public void routingHandlesUnknnownCode() throws Exception {
+    public void routingHandlesUnknownCode() throws Exception {
         when(routeCalculator.routing("UKR", "Narnia")).thenThrow(new CountryNotFoundException("No country found"));
 
         mockMvc.perform(get("/routing/UKR/Narnia"))
-                .andExpect(status().isBadRequest());
+                .andExpect(status().isBadRequest())
+                .andExpect(jsonPath("$.error", notNullValue()));
     }
 
 }
