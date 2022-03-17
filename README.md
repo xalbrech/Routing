@@ -3,7 +3,7 @@
 ## Overview
 
 The application finds a land route between two countries based on list of countries located at : `https://raw.githubusercontent.com/mledoze/countries/master/countries.json`. 
-To calculate the route, list of each country borders (neighbourghing countries) from the above URL is used. 
+To calculate the route, list of each country borders (neighbourgh countries) from the above URL is used. 
 
 Upon start, the application exposes a single service, `/routing/{origin}/{destination}`, that allows to search for a route by country codes (cca3).   
 Results are returned as an array of codes of countries between (and including) origin and destination.
