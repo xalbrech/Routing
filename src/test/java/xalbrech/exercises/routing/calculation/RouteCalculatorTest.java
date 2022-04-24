@@ -46,7 +46,7 @@ class RouteCalculatorTest {
         Country ukr = mockCountry("UKR");
         Country aut = mockCountry("AUT");
         Country ita = mockCountry("ITA");
-        Country usa = mockCountry("USA");
+        mockCountry("USA");
 
         when(cze.getBorders()).thenReturn(countrySet(svk, aut));
         when(svk.getBorders()).thenReturn(countrySet(ukr, cze, aut));

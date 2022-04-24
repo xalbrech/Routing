@@ -1,6 +1,5 @@
 package xalbrech.exercises.routing.map.json;
 
-import java.util.ArrayList;
 import java.util.Set;
 
 /**
